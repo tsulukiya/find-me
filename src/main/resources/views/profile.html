@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <title>Find me</title>
+</head>
+<body>
+
+<div>
+
+    <div class="left">
+        <h1>Photo</h1>
+
+        <div>
+            <button class="">Send message</button>
+        </div>
+    </div>
+
+    <div class="right">
+        Styled text here
+        <p th:text="${text}"></p>
+    </div>
+
+</div>
+
+</body>
+<style>
+    .left {
+        float: left;
+        width: 200px;
+        height: 300px;
+        border-style: solid;
+    }
+
+    .right {
+        margin-left: 300px;
+    }
+</style>
+
+</html>
