@@ -11,13 +11,26 @@
         <h1>Photo</h1>
 
         <div>
-            <button class="">Send message</button>
+            <button class="btn">Send message</button>
         </div>
     </div>
 
     <div class="right">
-        Styled text here
-        <p th:text="${text}"></p>
+        User profile:
+       <p th:text="${user.firstName}"></p>
+       <p th:text="${user.lastName}"></p>
+       <p th:text="${user.phone}"></p>
+       <p th:text="${user.country}"></p>
+       <p th:text="${user.city}"></p>
+       <p th:text="${user.age}"></p>
+       <p th:text="${user.dateRegistered}"></p>
+       <p th:text="${user.dateLastActive}"></p>
+       <p th:text="${user.relationshipStatus}"></p>
+       <p th:text="${user.religion}"></p>
+       <p th:text="${user.school}"></p>
+       <p th:text="${user.university}"></p>
+       <p th:text="${user.messagesSent}"></p>
+       <p th:text="${user.messagesReceived}"></p>
     </div>
 
 </div>
@@ -33,6 +46,10 @@
 
     .right {
         margin-left: 300px;
+    }
+
+    .btn {
+        margin-top: 230px;
     }
 </style>
 

@@ -1,25 +1,38 @@
 package com.findme.dao;
 
 import com.findme.models.User;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Repository
 public class UserRepositoryImpl implements UserRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public User save(User user) {
-        return null;
+        entityManager.persist(user);
+        return user;
     }
 
     @Override
     public User update(User user) {
-        return null;
+        entityManager.persist(user);
+        return user;
     }
 
     @Override
     public User delete(Long id) {
-        return null;
+        User user = findById(id);
+        entityManager.detach(user);
+        return user;
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        return entityManager.find(User.class, id);
     }
 }
