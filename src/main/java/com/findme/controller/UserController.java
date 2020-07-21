@@ -53,4 +53,9 @@ public class UserController {
         }
         return "profile";
     }
+
+    @RequestMapping(path = "/user-registration", method = RequestMethod.POST)
+    public User registerUser(@ModelAttribute User user) {
+        return userService.save(user);
+    }
 }

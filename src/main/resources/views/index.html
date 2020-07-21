@@ -1,12 +1,55 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymleaf.org">
-<head>
-    <title>Find me</title>
-</head>
+
+<!--    <title>Find me</title>-->
+
 <body>
-<div>
-    <h1>Welcome To Find me!</h1>
-</div>
+
+<h1>Welcome To Find me!</h1>
+
+<form id="registration-form">
+    <input type="text" name="firstName" required>
+    <input type="text" name="lastName" required>
+    <input type="tel" name="phone" required>
+    <input type="text" name="country" required>
+    <input type="text" name="city" required>
+    <input type="number" name="age" required>
+    <input type="date" name="dateRegistered">
+    <input type="date" name="dateLastActive">
+    <input type="text" name="relationshipStatus">
+    <input type="text" name="religion" required>
+    <input type="text" name="school" required>
+    <input type="text" name="university" required>
+    <button type="submit">Submit</button>
+    <!--    <p><button id="test-ajax" form="registration-form" type="submit">Click here!</button></p>-->
+</form>
+
+<!--<button id="test-ajax">Click here!</button>-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </body>
+
+<!--<p><button id="test-ajax" form="registration-form" type="submit">Click here!</button></p>-->
+
+<script>
+
+    $("#registration-form").submit(function (e) {
+        $.ajax({
+            url: "/user-registration",
+            type: "POST",
+            data: $('#registration-form').serialize(),
+            success: function success(data) {
+                //
+            },
+            error: function error(xhr) {
+                //
+            }
+        });
+    });
+
+</script>
+
+<footer>Footer</footer>
+
 </html>
