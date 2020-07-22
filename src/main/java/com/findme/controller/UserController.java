@@ -5,6 +5,8 @@ import com.findme.models.User;
 import com.findme.service.PostService;
 import com.findme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +57,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/user-registration", method = RequestMethod.POST)
-    public User registerUser(@ModelAttribute User user) {
-        return userService.save(user);
+    public ResponseEntity<String> registerUser(@ModelAttribute User user) {
+        return new ResponseEntity<>("Account is created", HttpStatus.CREATED);
     }
 }
