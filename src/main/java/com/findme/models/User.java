@@ -14,6 +14,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phone;
+    private String password;
     //TODO: from existed data
     private String country;
     private String city;
@@ -171,6 +172,15 @@ public class User {
         this.messagesReceived = messagesReceived;
     }
 
+    @Column(name = "USER_PASSWORD")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -180,6 +190,7 @@ public class User {
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(phone, user.phone) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(country, user.country) &&
                 Objects.equals(city, user.city) &&
                 Objects.equals(age, user.age) &&
@@ -195,8 +206,8 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phone, country, city, age, dateRegistered, dateLastActive,
-                relationshipStatus, religion, school, university, messagesSent, messagesReceived);
+        return Objects.hash(id, firstName, lastName, phone, password, country, city, age, dateRegistered,
+                dateLastActive, relationshipStatus, religion, school, university, messagesSent, messagesReceived);
     }
 
     @Override
@@ -206,6 +217,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", age=" + age +

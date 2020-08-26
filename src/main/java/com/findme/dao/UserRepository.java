@@ -11,4 +11,6 @@ public interface UserRepository {
     User delete(Long id);
 
     User findById(Long id);
+
+    User userLogin(String login, String password);
 }

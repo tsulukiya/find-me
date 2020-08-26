@@ -1,5 +1,6 @@
 package com.findme.controller;
 
+import com.findme.exception.InternalServerError;
 import com.findme.models.Post;
 import com.findme.models.User;
 import com.findme.service.PostService;
@@ -10,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 @Controller
 public class UserController {
@@ -58,6 +63,39 @@ public class UserController {
 
     @RequestMapping(path = "/user-registration", method = RequestMethod.POST)
     public ResponseEntity<String> registerUser(@ModelAttribute User user) {
-        return new ResponseEntity<>("Account is created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Account is created", HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/login", method = RequestMethod.GET)
+    public ResponseEntity<String> userLogin(HttpSession session, @RequestParam(value = "phone") String login,
+                                            @RequestParam(value = "password") String password) {
+        try {
+            User user = userService.userLogin(login, password);
+            if (user == null) {
+                return new ResponseEntity<>("Login or password incorrect. Code - 401", HttpStatus.UNAUTHORIZED);
+            }
+            if (session.getAttribute("userLogged") != null) {
+                session.invalidate();
+                session.setAttribute("userLogged", user);
+                return new ResponseEntity<>("User with this login is already logged", HttpStatus.BAD_REQUEST);
+            } else {
+                session.setAttribute("userLogged", user);
+            }
+
+        } catch (InternalServerError error) {
+            System.err.println(error.getMessage());
+        }
+        return new ResponseEntity<>("Welcome to FindMe! Code - 200", HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public ResponseEntity<String> userLogin(HttpSession session, @RequestParam(value = "phone") String login) {
+        if (session.getAttribute("userLogged")!=null) {
+            session.removeAttribute("userLogged");
+            return new ResponseEntity<String>("User is logout!", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Page - 404", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
