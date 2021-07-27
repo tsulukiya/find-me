@@ -8,27 +8,27 @@
 <h1>Welcome To Find me!</h1>
 
 <form id="registration-form">
-    <input type="text" name="firstName" required>
-    <input type="text" name="lastName" required>
-    <input type="tel" name="phone" required>
-    <input type="text" name="country" required>
-    <input type="text" name="city" required>
-    <input type="number" name="age" required>
+    <input type="text" value="FirstName" name="firstName" required>
+    <input type="text" value="LastName" name="lastName" required>
+    <input type="tel" value="+0000000000" name="phone" required>
+    <input type="text"value="Ukraine" name="country" required>
+    <input type="text" value="KIev" name="city" required>
+    <input type="number"value="12" name="age" required>
     <input type="date" name="dateRegistered">
     <input type="date" name="dateLastActive">
     <input type="text" name="relationshipStatus">
-    <input type="text" name="religion" required>
-    <input type="text" name="school" required>
-    <input type="text" name="university" required>
-    <button type="submit">Submit</button>
+    <input type="text" value="Islam" name="religion" required>
+    <input type="text" value="school" name="school" required>
+    <input type="text" value="University" name="university" required>
+    <p>
+        <button type="submit" form="registration-form">Submit form</button>
+    </p>
     <!--    <p><button id="test-ajax" form="registration-form" type="submit">Click here!</button></p>-->
 </form>
 
 <!--<button id="test-ajax">Click here!</button>-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-</body>
 
 <!--<p><button id="test-ajax" form="registration-form" type="submit">Click here!</button></p>-->
 
@@ -49,6 +49,8 @@
     });
 
 </script>
+
+</body>
 
 <footer>Footer</footer>
 

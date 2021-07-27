@@ -61,7 +61,7 @@ public class UserController {
         return "profile";
     }
 
-    @RequestMapping(path = "/user-registration", method = RequestMethod.POST)
+    @RequestMapping(path = "/user-registration", method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseEntity<String> registerUser(@ModelAttribute User user) {
         return new ResponseEntity<>("Account is created", HttpStatus.OK);
     }
