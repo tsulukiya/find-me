@@ -37,29 +37,30 @@ public class UserController {
         return userService.update(user);
     }
 
+
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser", produces = "application/json")
     public @ResponseBody
-    User delete(Long id) {
+    User delete(@RequestParam Long id) {
         return userService.delete(id);
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "findUser", produces = "application/json")
-//    public @ResponseBody
-//    User findById(Model model, @PathVariable Long id) {
-//        User user = userService.findById(id);
-//        return userService.findById(id);
-//    }
-
-    @RequestMapping(path = "/user/{userId}", method = RequestMethod.GET)
-    public String profile(Model model, @PathVariable Long userId) throws Exception {
-        User user = userService.findById(userId);
-        if (user == null) {
-            throw new Exception("Profile user with id = " + userId + "is not found");
-        } else {
-            model.addAttribute("user", user);
-        }
-        return "profile";
+    @RequestMapping(method = RequestMethod.GET, value = "findUser", produces = "application/json")
+    public @ResponseBody
+    User findById(Model model, @PathVariable Long id) {
+        User user = userService.findById(id);
+        return userService.findById(id);
     }
+
+//    @RequestMapping(path = "/user/{userId}", method = RequestMethod.GET)
+//    public String profile(Model model, @PathVariable Long userId) throws Exception {
+//        User user = userService.findById(userId);
+//        if (user == null) {
+//            throw new Exception("Profile user with id = " + userId + "is not found");
+//        } else {
+//            model.addAttribute("user", user);
+//        }
+//        return "profile";
+//    }
 
     @RequestMapping(path = "/user-registration", method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseEntity<String> registerUser(@ModelAttribute User user) {

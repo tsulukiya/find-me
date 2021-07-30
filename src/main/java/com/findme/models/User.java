@@ -1,6 +1,7 @@
 package com.findme.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,18 +11,26 @@ import java.util.Objects;
 @Entity
 @Table(name = "USER_SOCIAL")
 public class User {
+    //@JsonProperty("id")
     private Long id;
+    //JsonProperty("firstName")
     private String firstName;
+    //@JsonProperty("lastName")
     private String lastName;
+    //@JsonProperty("phone")
     private String phone;
+    //@JsonProperty("password")
     private String password;
     //TODO: from existed data
+    //@JsonProperty("country")
     private String country;
+    //@JsonProperty("city")
     private String city;
+    //@JsonProperty("age")
     private Integer age;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    //@JsonFormat(pattern="yyyy-MM-dd")
     private Date dateRegistered;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    //@JsonFormat(pattern="yyyy-MM-dd")
     private Date dateLastActive;
     //TODO: enum
     private String relationshipStatus;

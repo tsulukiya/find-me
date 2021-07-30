@@ -6,6 +6,7 @@ import com.findme.exception.NotFoundException;
 import com.findme.models.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.persistence.EntityManager;
