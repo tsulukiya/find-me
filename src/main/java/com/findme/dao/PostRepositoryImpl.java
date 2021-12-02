@@ -2,11 +2,12 @@ package com.findme.dao;
 
 import com.findme.models.Post;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Controller
+@Repository
 public class PostRepositoryImpl implements PostRepository {
 
     @PersistenceContext

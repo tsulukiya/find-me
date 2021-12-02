@@ -4,14 +4,17 @@ import com.findme.exception.BadRequestException;
 import com.findme.exception.InternalServerError;
 import com.findme.exception.NotFoundException;
 import com.findme.models.User;
+import org.hibernate.loader.plan.exec.internal.LoadQueryJoinAndFetchProcessor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.JoinColumn;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Repository
 @Transactional
@@ -37,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User delete(Long id) {
         User user = findById(id);
-        entityManager.detach(user);
+        entityManager.remove(user);
         return user;
     }
 

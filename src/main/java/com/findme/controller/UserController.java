@@ -25,26 +25,30 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "saveUser", produces = "application/json")
+    //@RequestMapping(method = RequestMethod.POST, value = "saveUser", produces = "application/json")
+    @PostMapping(value = "user", produces = "application/json")
     public @ResponseBody
     User save(@RequestBody User user) {
         return userService.save(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateUser", produces = "application/json")
+    //@RequestMapping(method = RequestMethod.PUT, value = "updateUser", produces = "application/json")
+    @PutMapping(value = "user", produces = "application/json")
     public @ResponseBody
     User update(@RequestBody User user) {
         return userService.update(user);
     }
 
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser", produces = "application/json")
+    //@RequestMapping(method = RequestMethod.DELETE, value = "deleteUser", produces = "application/json")
+    @DeleteMapping(value = "user", produces = "application/json")
     public @ResponseBody
     User delete(@RequestParam Long id) {
         return userService.delete(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "findUser", produces = "application/json")
+    //@RequestMapping(method = RequestMethod.GET, value = "findUser", produces = "application/json")
+    @GetMapping(value = "user", produces = "application/json")
     public @ResponseBody
     User findById(Model model, @PathVariable Long id) {
         User user = userService.findById(id);
@@ -67,7 +71,8 @@ public class UserController {
         return new ResponseEntity<>("Account is created", HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.GET)
+    //    @RequestMapping(path = "/login", method = RequestMethod.GET)
+    @GetMapping(path = "/login")
     public ResponseEntity<String> userLogin(HttpSession session, @RequestParam(value = "phone") String login,
                                             @RequestParam(value = "password") String password) {
         try {
@@ -89,9 +94,10 @@ public class UserController {
         return new ResponseEntity<>("Welcome to FindMe! Code - 200", HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    //    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    @GetMapping(path = "/logout")
     public ResponseEntity<String> userLogin(HttpSession session, @RequestParam(value = "phone") String login) {
-        if (session.getAttribute("userLogged")!=null) {
+        if (session.getAttribute("userLogged") != null) {
             session.removeAttribute("userLogged");
             return new ResponseEntity<String>("User is logout!", HttpStatus.OK);
         }

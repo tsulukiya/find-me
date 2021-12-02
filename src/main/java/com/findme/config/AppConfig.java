@@ -11,16 +11,18 @@ import com.findme.service.PostServiceImpl;
 import com.findme.service.UserService;
 import com.findme.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.PropertyResolver;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -36,9 +38,22 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com"})
+@PropertySource("classpath:application.properties")
+@ComponentScan(value = "com.findme",
+        includeFilters = {
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class)
+})
 public class AppConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
+
+//    @Value(value = "${url.database}")
+//    private String urlDatabase;
+//    @Value(value = "${user.name}")
+//    private String userName;
+//    @Value(value = "${user.password}")
+//    private String userPassword;
+//    @Value(value = "${driver.class.name}")
+//    private String driverClassName;
 
     @Autowired
     public AppConfig(ApplicationContext applicationContext) {
@@ -79,12 +94,22 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public PropertiesDataBase propertiesDataBase () {
+        return new PropertiesDataBase();
+    }
+
+    @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@findme-aws.crtbfzac2vbi.us-east-1.rds.amazonaws.com:1521:ORCL");
-        dataSource.setUsername("main");
-        dataSource.setPassword("TsulukiyA_123");
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String bean : beanDefinitionNames) {
+            System.out.println(bean);
+
+        }
+        dataSource.setDriverClassName(propertiesDataBase().getDriverClassName());
+        dataSource.setUrl(propertiesDataBase().getUrlDatabase());
+        dataSource.setUsername(propertiesDataBase().getUserLogin());
+        dataSource.setPassword(propertiesDataBase().getUserPassword());
         return dataSource;
     }
 
@@ -100,7 +125,7 @@ public class AppConfig implements WebMvcConfigurer {
         return transactionManager;
     }
 
-    Properties additionalProperties() {
+    private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
         properties.setProperty("hibernate.show_sql", "true");
@@ -108,26 +133,26 @@ public class AppConfig implements WebMvcConfigurer {
         return properties;
     }
 
-    @Bean(name = "userRepository")
-    public UserRepository userRepository() {
-        return new UserRepositoryImpl();
-    }
-
-    @Bean(name = "postRepository")
-    public PostRepository postRepository() {
-        return new PostRepositoryImpl();
-    }
-
-    @Bean(name = "userService")
-    public UserService userService(UserRepository userRepository) {
-        return new UserServiceImpl(userRepository);
-    }
-
-    @Bean(name = "postService")
-    public PostService postService(PostRepository postRepository) {
-        return new PostServiceImpl(postRepository);
-    }
-
+//    @Bean(name = "userRepository")
+//    public UserRepository userRepository() {
+//        return new UserRepositoryImpl();
+//    }
+//
+//    @Bean(name = "postRepository")
+//    public PostRepository postRepository() {
+//        return new PostRepositoryImpl();
+//    }
+//
+//    @Bean(name = "userService")
+//    public UserService userService(UserRepository userRepository) {
+//        return new UserServiceImpl(userRepository);
+//    }
+//
+//    @Bean(name = "postService")
+//    public PostService postService(PostRepository postRepository) {
+//        return new PostServiceImpl(postRepository);
+//    }
+//
 //    @Bean(name = "userController")
 //    public UserController userController(UserService userService) {
 //        return new UserController(userService);
